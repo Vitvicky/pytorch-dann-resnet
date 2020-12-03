@@ -1,8 +1,7 @@
 import os
 import sys
-
+sys.path.append(os.path.abspath('.'))
 import torch
-sys.path.append('../')
 from models.model import MNISTmodel, MNISTmodel_plain
 from core.train import train_dann
 from utils.utils import get_data_loader, init_model, init_random_seed
@@ -10,8 +9,13 @@ from utils.utils import get_data_loader, init_model, init_random_seed
 
 class Config(object):
     # params for path
-    dataset_root = os.path.expanduser(os.path.join('~', 'Datasets'))
-    model_root = os.path.expanduser(os.path.join('~', 'Models', 'pytorch-DANN'))
+    currentDir = os.path.dirname(os.path.realpath(__file__))
+    dataset_root = os.environ["DATASETDIR"]
+    model_root = os.path.join(currentDir, 'checkpoints')
+
+    finetune_flag = False
+    lr_adjust_flag = 'simple'
+    src_only_flag = False
 
     # params for datasets and data loader
     batch_size = 64
@@ -53,6 +57,8 @@ class Config(object):
 
     # params for optimizing models
     lr = 2e-4
+    momentum = 0.0
+    weight_decay = 0.0
 
 
 params = Config()
@@ -70,7 +76,7 @@ tgt_data_loader = get_data_loader(params.tgt_dataset, params.dataset_root, param
 tgt_data_loader_eval = get_data_loader(params.tgt_dataset, params.dataset_root, params.batch_size, train=False)
 
 # load dann model
-dann = init_model(net=MNISTmodel_plain(), restore=None)
+dann = init_model(net=MNISTmodel(), restore=None)
 
 # train dann model
 print("Training dann model")
