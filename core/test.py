@@ -39,6 +39,6 @@ def test(model, data_loader, device, loggi, flag):
     acc = acc_ / n_total
     acc_domain = acc_domain_ / n_total
 
-    loggi.info("Avg Loss = {:.6f}, Avg Accuracy = {:.2%}, {}/{}, Avg Domain Accuracy = {:2%}".format(loss, acc, acc_, n_total, acc_domain))
+    loggi.info("{}: Avg Loss = {:.6f}, Avg Accuracy = {:.2%}, {}/{}, Avg Domain Accuracy = {:2%}".format(flag, loss, acc, acc_, n_total, acc_domain))
 
     return loss, acc, acc_domain
