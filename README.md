@@ -14,7 +14,7 @@ A PyTorch implementation for paper *[Unsupervised Domain Adaptation by Backpropa
 
 ## Note
 
-Before running the training code, make sure that `DATASETDIR` is set to dataset directory.
+Before running the training code, make sure that `DATASETDIR` environment variable is set to dataset directory.
 
 - `MNISTmodel()`
     - basically the same network structure as proposed in the paper, expect for adding dropout layer in feature extractor
