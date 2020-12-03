@@ -104,5 +104,10 @@ ENV/
 # personal
 .idea
 .DS_Store
+.vscode
 main_legacy.py
 test.ipynb
+dann.ipynb
+ipynb_checkpoints
+checkpoints/
+datasetFiles/
