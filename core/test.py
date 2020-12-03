@@ -1,7 +1,7 @@
 import torch.utils.data
 import torch.nn as nn
 
-def test(model, data_loader, device, flag):
+def test(model, data_loader, device, loggi, flag):
     """Evaluate model for dataset."""
     # set eval state for Dropout and BN layers
     model.eval()
@@ -39,6 +39,6 @@ def test(model, data_loader, device, flag):
     acc = acc_ / n_total
     acc_domain = acc_domain_ / n_total
 
-    print("Avg Loss = {:.6f}, Avg Accuracy = {:.2%}, {}/{}, Avg Domain Accuracy = {:2%}".format(loss, acc, acc_, n_total, acc_domain))
+    loggi.info("Avg Loss = {:.6f}, Avg Accuracy = {:.2%}, {}/{}, Avg Domain Accuracy = {:2%}".format(loss, acc, acc_, n_total, acc_domain))
 
     return loss, acc, acc_domain

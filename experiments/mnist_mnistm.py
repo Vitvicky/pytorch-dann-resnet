@@ -5,6 +5,7 @@ import torch
 from models.model import MNISTmodel, MNISTmodel_plain
 from core.train import train_dann
 from utils.utils import get_data_loader, init_model, init_random_seed
+from utils.altutils import setLogger
 
 
 class Config(object):
@@ -63,6 +64,10 @@ class Config(object):
 
 params = Config()
 
+currentDir = os.path.dirname(os.path.realpath(__file__))
+logFile = os.path.join(currentDir+'/../', 'dann-{}-{}.log'.format(params.src_dataset, params.tgt_dataset))
+loggi = setLogger(logFile)
+
 # init random seed
 init_random_seed(params.manual_seed)
 
@@ -81,4 +86,4 @@ dann = init_model(net=MNISTmodel(), restore=None)
 # train dann model
 print("Training dann model")
 if not (dann.restored and params.dann_restore):
-    dann = train_dann(dann, params, src_data_loader, tgt_data_loader, tgt_data_loader_eval, device)
+    dann = train_dann(dann, params, src_data_loader, tgt_data_loader, tgt_data_loader_eval, device, loggi)
