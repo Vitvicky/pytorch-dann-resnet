@@ -235,7 +235,7 @@ def train_dann(model, params, src_data_loader, tgt_data_loader, tgt_data_loader_
     save_model(model, params.model_root, params.src_dataset + '-' + params.tgt_dataset + "-dann-final.pt")
     loggi.info('\n============ Summary ============= \n')
     loggi.info('Accuracy of the %s dataset: %f' % (params.src_dataset, bestAccS))
-    loggi.info('Accuracy of the %s dataset: %f' % (params.tgtc_dataset, bestAcc))
+    loggi.info('Accuracy of the %s dataset: %f' % (params.tgt_dataset, bestAcc))
 
     return model
 
