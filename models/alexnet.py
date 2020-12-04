@@ -80,9 +80,10 @@ def alexnet(pretrained=False, **kwargs):
     Args:
         pretrained (bool): If True, returns a model pre-trained on ImageNet
     """
+    model_root = os.environ["MODELDIR"]
     model = AlexNet(**kwargs)
     if pretrained:
-        model_path = '/home/wogong/Models/alexnet.pth.tar'
+        model_path = os.path.join(model_root, 'alexnet.pth.tar')
         pretrained_model = torch.load(model_path)
         model.load_state_dict(pretrained_model['state_dict'])
     return model

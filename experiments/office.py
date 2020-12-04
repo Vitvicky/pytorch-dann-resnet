@@ -1,19 +1,28 @@
 import os
 import sys
-
 import torch
-
-sys.path.append('../')
+sys.path.append(os.path.abspath('.'))
 from core.train import train_dann
 from core.test import test
 from models.model import AlexModel
+from models.model import ResNet50
 from utils.utils import get_data_loader, init_model, init_random_seed
+from utils.altutils import setLogger
+
+# To avoid proxy issues while downloading pretrained model
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 class Config(object):
     # params for path
-    dataset_root = os.path.expanduser(os.path.join('~', 'Datasets'))
-    model_root = os.path.expanduser(os.path.join('~', 'Models', 'pytorch-dann'))
+    currentDir = os.path.dirname(os.path.realpath(__file__))
+    dataset_root = os.environ["DATASETDIR"]
+    model_root = os.path.join(currentDir, 'checkpoints')
+
+    finetune_flag = True
+    lr_adjust_flag = 'non-simple'
+    src_only_flag = False
 
     # params for datasets and data loader
     batch_size = 32
@@ -52,6 +61,10 @@ class Config(object):
 
 params = Config()
 
+currentDir = os.path.dirname(os.path.realpath(__file__))
+logFile = os.path.join(currentDir+'/../', 'dann-{}-{}.log'.format(params.src_dataset, params.tgt_dataset))
+loggi = setLogger(logFile)
+
 # init random seed
 init_random_seed(params.manual_seed)
 
@@ -63,12 +76,13 @@ src_data_loader = get_data_loader(params.src_dataset, params.dataset_root, param
 tgt_data_loader = get_data_loader(params.tgt_dataset, params.dataset_root, params.batch_size)
 
 # load dann model
-dann = init_model(net=AlexModel(), restore=None)
+# dann = init_model(net=AlexModel(), restore=None)
+dann = init_model(net=ResNet50(), restore=None)
 
 # train dann model
 print("Start training dann model.")
 
-if not (dann.restored and params.dann_restore):
-    dann = train_dann(dann, params, src_data_loader, tgt_data_loader, tgt_data_loader, device)
+# if not (dann.restored and params.dann_restore):
+dann = train_dann(dann, params, src_data_loader, tgt_data_loader, tgt_data_loader, device, loggi)
 
 print('done')

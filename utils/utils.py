@@ -35,6 +35,19 @@ def init_weights(layer):
         layer.bias.data.fill_(0)
 
 
+def weights_init(m):
+    classname = m.__class__.__name__
+    if classname.find('Conv') != -1:
+        m.weight.data.normal_(0.0, 0.02)
+    elif classname.find('BatchNorm') != -1:
+        m.weight.data.normal_(1.0, 0.02)
+        m.bias.data.fill_(0)
+    elif classname.find('Linear') != -1:
+        size = m.weight.size()
+        m.weight.data.normal_(0.0, 0.1)
+        m.bias.data.fill_(0)
+
+
 def init_random_seed(manual_seed):
     """Init random seed."""
     seed = None
@@ -61,6 +74,8 @@ def get_data_loader(name, dataset_root, batch_size, train=True):
         return get_office(dataset_root, batch_size, 'amazon')
     elif name == "webcam31":
         return get_office(dataset_root, batch_size, 'webcam')
+    elif name == "dslr31":
+        return get_office(dataset_root, batch_size, 'dslr')
     elif name == "webcam10":
         return get_officecaltech(dataset_root, batch_size, 'webcam')
     elif name == "syndigits":

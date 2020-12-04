@@ -17,7 +17,7 @@ def get_office(dataset_root, batch_size, category):
 
     # datasets and data_loader
     office_dataset = datasets.ImageFolder(
-        os.path.join(dataset_root, 'office', category, 'images'), transform=pre_process)
+        os.path.join(dataset_root, 'office31', category, 'images'), transform=pre_process)
 
     office_dataloader = torch.utils.data.DataLoader(
         dataset=office_dataset, batch_size=batch_size, shuffle=True, num_workers=0)

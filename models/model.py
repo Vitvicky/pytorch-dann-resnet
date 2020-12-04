@@ -1,9 +1,12 @@
 """DANN model."""
-
+import os
+import torch
 import torch.nn as nn
 from .functions import ReverseLayerF
 from torchvision import models
 from .alexnet import alexnet
+from .resnet import resnet50
+from utils.utils import weights_init
 
 
 class Classifier(nn.Module):
@@ -260,7 +263,8 @@ class AlexModel(nn.Module):
     def __init__(self):
         super(AlexModel, self).__init__()
         self.restored = False
-        model_alexnet = models.alexnet(pretrained=True)
+        # model_alexnet = models.alexnet(pretrained=True)
+        model_alexnet = alexnet(pretrained=True)
 
         self.features = model_alexnet.features
 
@@ -299,6 +303,42 @@ class AlexModel(nn.Module):
         reverse_bottleneck = ReverseLayerF.apply(bottleneck, alpha)
 
         class_output = self.classifier(bottleneck)
+        domain_output = self.discriminator(reverse_bottleneck)
+
+        return class_output, domain_output
+
+
+class ResNet50(nn.Module):
+    def __init__(self):
+        super(ResNet50, self).__init__()
+        
+        resnetModel = models.resnet50(pretrained=True)
+        feature_map = list(resnetModel.children())
+        feature_map.pop()
+        self.feature_extractor = nn.Sequential(*feature_map)
+
+        self.classifier = nn.Sequential(
+            nn.Linear(2048, 31),
+        )
+
+        self.discriminator = nn.Sequential(
+            nn.Linear(2048, 1024),
+            nn.ReLU(inplace=True),
+            nn.Dropout(),
+            nn.Linear(1024, 1024),
+            nn.ReLU(inplace=True),
+            nn.Dropout(),
+            nn.Linear(1024, 2),
+        )
+
+    def forward(self, input_data, alpha=-1, sln='dann'):
+        input_data = input_data.expand(input_data.data.shape[0], 3, 227, 227)
+        feature = self.feature_extractor(input_data)
+        feature = feature.view(-1, 2048)
+
+        reverse_bottleneck = ReverseLayerF.apply(feature, alpha)
+
+        class_output = self.classifier(feature)
         domain_output = self.discriminator(reverse_bottleneck)
 
         return class_output, domain_output

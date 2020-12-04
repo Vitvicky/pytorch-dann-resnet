@@ -9,8 +9,8 @@ A PyTorch implementation for paper *[Unsupervised Domain Adaptation by Backpropa
 
 ## Environment
 
-- Python 3.6
-- PyTorch 1.0
+- Python 3.8.5
+- PyTorch 1.6.0
 
 ## Note
 
@@ -26,6 +26,8 @@ Before running the training code, make sure that `DATASETDIR` environment variab
 - `GTSRBmodel()`
 - `AlexModel`
     - not successful, mainly due to the pretrained model difference
+- `ResNet50`
+    - Better and more stable results than AlexNet.
 
 ## Result
 
