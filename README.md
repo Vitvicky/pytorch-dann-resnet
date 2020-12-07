@@ -49,6 +49,9 @@ Before running the training code, make sure that `DATASETDIR` environment variab
 
 ## Credit
 
+- <https://github.com/wogong/pytorch-dann>
 - <https://github.com/fungtion/DANN>
+- <https://github.com/hehai131/DANN>
+- <https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py>
 - <https://github.com/corenel/torchsharp>
 - <https://github.com/corenel/pytorch-starter-kit>
