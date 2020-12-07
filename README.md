@@ -1,5 +1,7 @@
 # PyTorch-DANN
 
+This repo is mostly based on https://github.com/wogong/pytorch-dann. 
+
 A PyTorch implementation for paper *[Unsupervised Domain Adaptation by Backpropagation](http://sites.skoltech.ru/compvision/projects/grl/)*
 
     InProceedings (icml2015-ganin15)
