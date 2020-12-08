@@ -28,12 +28,16 @@ class Config(object):
     batch_size = 32
 
     # params for source dataset
-    src_dataset = "amazon31"
+    # src_dataset = "amazon31"
+    # src_dataset = "dslr31"
+    src_dataset = "webcam31"
     src_model_trained = True
     src_classifier_restore = os.path.join(model_root, src_dataset + '-source-classifier-final.pt')
 
     # params for target dataset
-    tgt_dataset = "webcam31"
+    # tgt_dataset = "webcam31"
+    # tgt_dataset = "dslr31"
+    tgt_dataset = "amazon31"
     tgt_model_trained = True
     dann_restore = os.path.join(model_root, src_dataset + '-' + tgt_dataset + '-dann-final.pt')
 
