@@ -43,16 +43,15 @@ $ python experiments/office.py
 |                      | MNIST-MNISTM   | SVHN-MNIST | SYNDIGITS-SVHN | SYNSIGNS-GTSRB |
 | :------------------: | :------------: | :--------: |:-------------: |:-------------: |
 | Source Only          |   0.5225       |  0.5490    | 0.8674         | 0.7900         |
-| DANN(paper)          |   0.7666       |  0.7385    | 0.9109         | 0.8865         |
+| DANN (paper)         |   0.7666       |  0.7385    | 0.9109         | 0.8865         |
 | This Repo Source Only|   -            |  -         | -              | 0.9100         |
 | This Repo            |   0.8400       |  0.7339    | 0.8200         | -              |
 
 |                      | AMAZON-WEBVCAM |  DSLR-WEBCAM | WEBCAM-DSLR |
 | :------------------: | :------------: |:-----------: |:----------: |
 | Source Only          |   0.6420       |  0.9610      | 0.9780      |
-| DANN(paper)          |   0.7300       |  0.9640      | 0.9920      |
-| This Repo Source Only|   -            |  -           | -           |
-| This Repo            |   0.6528       |  -           | -           |
+| DANN (paper)         |   0.7300       |  0.9640      | 0.9920      |
+| This Repo (ResNet50) |   0.8151       |  -           | -           |
 
 ## Credit
 
