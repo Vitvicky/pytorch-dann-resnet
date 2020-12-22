@@ -126,19 +126,6 @@ def train_dann(model, params, src_data_loader, tgt_data_loader, tgt_data_loader_
         optimizer = optim.SGD(model.parameters(), lr=params.lr, momentum=params.momentum, weight_decay=params.weight_decay)
     else:
         print("training office task")
-        # parameter_list = [{
-        #     "params": model.features.parameters(),
-        #     "lr": 0.001
-        # }, {
-        #     "params": model.fc.parameters(),
-        #     "lr": 0.001
-        # }, {
-        #     "params": model.bottleneck.parameters()
-        # }, {
-        #     "params": model.classifier.parameters()
-        # }, {
-        #     "params": model.discriminator.parameters()
-        # }]
         parameter_list = [{
             "params": model.feature_extractor.parameters(),
             "lr": 0.0001
