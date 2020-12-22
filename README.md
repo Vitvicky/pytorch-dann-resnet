@@ -31,6 +31,13 @@ Before running the training code, make sure that `DATASETDIR` environment variab
 - `ResNet50`
     - Better and more stable results than AlexNet.
 
+## Run
+
+For training on Office dataset using ResNet-50, first set configs in `experiments/office.py`, then run
+```
+$ python experiments/office.py
+```
+
 ## Result
 
 |                      | MNIST-MNISTM   | SVHN-MNIST | SYNDIGITS-SVHN | SYNSIGNS-GTSRB |
